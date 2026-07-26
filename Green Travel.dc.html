@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    body { margin: 0; background: oklch(97% 0.008 90); }
+    a { color: oklch(38% 0.05 150); }
+    a:hover { color: oklch(28% 0.05 150); }
+    @keyframes gtFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</helmet>
+
+<div style="min-height: 100vh; display: flex; flex-direction: column; font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif; color: oklch(18% 0.01 90); background: oklch(97% 0.008 90);">
+
+  <!-- NAV -->
+  <header style="position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; padding: 22px 48px; background: oklch(97% 0.008 90 / 0.94); backdrop-filter: blur(8px); border-bottom: 1px solid oklch(87% 0.008 90);">
+    <div onClick="{{ goHome }}" style="cursor: pointer; font-family: 'Playfair Display', Georgia, serif; font-size: 21px; font-weight: 600; letter-spacing: 0.06em;">
+      GREEN TRAVEL
+    </div>
+    <nav style="display: flex; gap: 32px;">
+      <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
+        <div onClick="{{ item.onClick }}" style="cursor: pointer; font-size: 11.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(30% 0.01 90); padding-bottom: 4px; border-bottom: 1px solid transparent;" style-hover="{ borderBottomColor: 'oklch(30% 0.01 90)' }">
+          {{ item.zh }}
+        </div>
+      </sc-for>
+    </nav>
+  </header>
+
+  <main style="flex: 1;">
+
+    <!-- HOME PAGE -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <section style="animation: gtFadeIn 0.5s ease;">
+
+        <div style="position: relative; height: 620px; overflow: hidden;">
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop" alt="山林景觀" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, oklch(8% 0.01 90 / 0.55) 100%); pointer-events: none;"></div>
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 56px; pointer-events: none;">
+            <p style="pointer-events: auto; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(96% 0.005 90); margin: 0 0 18px; text-shadow: 0 1px 8px oklch(0% 0 0 / 0.4);">非營利永續旅遊評級平台</p>
+            <h1 style="pointer-events: auto; font-family: 'Playfair Display', Georgia, serif; font-size: 46px; line-height: 1.25; font-weight: 600; color: oklch(99% 0.003 90); margin: 0 0 24px; max-width: 720px; text-shadow: 0 2px 16px oklch(0% 0 0 / 0.45);">
+              讓你一眼看清，哪個選擇最省錢、也最減碳
+            </h1>
+            <p style="pointer-events: auto; font-size: 16px; color: oklch(96% 0.005 90); max-width: 480px; margin: 0 0 36px; line-height: 1.65; text-shadow: 0 1px 10px oklch(0% 0 0 / 0.4);">
+              永續不是犧牲，是聰明選擇。
+            </p>
+            <div style="pointer-events: auto; display: flex; gap: 16px; flex-wrap: wrap;">
+              <button onClick="{{ goDirectory }}" style="padding: 15px 30px; border-radius: 2px; border: 1px solid oklch(98% 0.005 90); background: transparent; color: oklch(98% 0.005 90); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; cursor: pointer;" style-hover="{ background: 'oklch(98% 0.005 90)', color: 'oklch(15% 0.01 90)' }">
+                查詢業者評級
+              </button>
+              <button onClick="{{ goCalculator }}" style="padding: 15px 30px; border-radius: 2px; border: 1px solid oklch(90% 0.005 90); background: transparent; color: oklch(98% 0.005 90); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; cursor: pointer;" style-hover="{ borderColor: 'oklch(98% 0.005 90)' }">
+                試算省錢減碳
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="max-width: 1080px; margin: 0 auto; padding: 96px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px;">
+          <div onClick="{{ goDirectory }}" style="cursor: pointer; border-top: 1px solid oklch(80% 0.01 90); padding-top: 24px;">
+            <p style="font-family: 'Playfair Display', Georgia, serif; font-size: 34px; font-weight: 600; color: oklch(70% 0.01 90); margin: 0 0 20px;">01</p>
+            <h3 style="font-size: 19px; font-weight: 700; margin: 0 0 10px; letter-spacing: -0.01em;">評級透明</h3>
+            <p style="font-size: 14.5px; color: oklch(42% 0.01 90); line-height: 1.7; margin: 0 0 14px;">
+              每間業者的評級都附第三方稽核依據，不只看業者自評分數，KPI 數字全部可查。
+            </p>
+            <span style="font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em;">前往查詢 →</span>
+          </div>
+          <div onClick="{{ goCalculator }}" style="cursor: pointer; border-top: 1px solid oklch(80% 0.01 90); padding-top: 24px;">
+            <p style="font-family: 'Playfair Display', Georgia, serif; font-size: 34px; font-weight: 600; color: oklch(70% 0.01 90); margin: 0 0 20px;">02</p>
+            <h3 style="font-size: 19px; font-weight: 700; margin: 0 0 10px; letter-spacing: -0.01em;">省錢 × 減碳</h3>
+            <p style="font-size: 14.5px; color: oklch(42% 0.01 90); line-height: 1.7; margin: 0 0 14px;">
+              輸入出發地、目的地與交通方式，立即看到能省下的費用與減少的碳排。
+            </p>
+            <span style="font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em;">開始試算 →</span>
+          </div>
+        </div>
+
+        <div style="position: relative; height: 460px; overflow: hidden;">
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1600&auto=format&fit=crop" alt="森林景觀" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <div style="position: absolute; inset: 0; background: oklch(8% 0.01 90 / 0.3); pointer-events: none;"></div>
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 48px; pointer-events: none;">
+            <p style="pointer-events: auto; font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; color: oklch(96% 0.005 90); text-transform: uppercase; margin: 0 0 20px; text-shadow: 0 1px 8px oklch(0% 0 0 / 0.4);">呼應聯合國永續發展目標</p>
+            <p style="pointer-events: auto; font-family: 'Playfair Display', Georgia, serif; font-size: 24px; line-height: 1.6; color: oklch(99% 0.003 90); margin: 0 auto 32px; max-width: 620px; text-shadow: 0 2px 14px oklch(0% 0 0 / 0.45);">
+              每一次評級查詢與行程試算，都對應「永續城市與社區」與「責任消費及生產」兩項目標。
+            </p>
+            <div style="pointer-events: auto; display: flex; gap: 14px; justify-content: center;">
+              <span style="padding: 8px 18px; border: 1px solid oklch(90% 0.005 90); border-radius: 999px; font-size: 12px; font-weight: 700; color: oklch(98% 0.005 90); letter-spacing: 0.04em;">SDG 11</span>
+              <span style="padding: 8px 18px; border: 1px solid oklch(90% 0.005 90); border-radius: 999px; font-size: 12px; font-weight: 700; color: oklch(98% 0.005 90); letter-spacing: 0.04em;">SDG 12</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- DIRECTORY PAGE -->
+    <sc-if value="{{ isDirectory }}" hint-placeholder-val="{{ false }}">
+      <section style="animation: gtFadeIn 0.5s ease;">
+        <div style="position: relative; height: 280px; overflow: hidden;">
+          <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?q=80&w=1600&auto=format&fit=crop" alt="旅宿景觀" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, oklch(8% 0.01 90 / 0.5) 100%); pointer-events: none;"></div>
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 32px; pointer-events: none;">
+            <h1 style="pointer-events: auto; font-family: 'Playfair Display', Georgia, serif; font-size: 34px; font-weight: 600; color: oklch(99% 0.003 90); margin: 0 0 8px; text-shadow: 0 2px 14px oklch(0% 0 0 / 0.45);">永續評級查詢</h1>
+            <p style="pointer-events: auto; font-size: 14px; color: oklch(96% 0.005 90); margin: 0; text-shadow: 0 1px 8px oklch(0% 0 0 / 0.4);">共 {{ businessCount }} 家業者，皆附第三方稽核依據</p>
+          </div>
+        </div>
+
+        <div style="max-width: 1160px; margin: 0 auto; padding: 48px 48px 100px;">
+          <div style="display: flex; gap: 28px; margin-bottom: 40px; border-bottom: 1px solid oklch(85% 0.008 90); padding-bottom: 20px;">
+            <select value="{{ filterRegion }}" onChange="{{ setFilterRegion }}" style="padding: 8px 0; border: none; border-bottom: 1px solid oklch(70% 0.008 90); background: transparent; font-size: 13.5px; font-weight: 600; color: oklch(25% 0.01 90); letter-spacing: 0.02em;">
+              <sc-for list="{{ regionOptions }}" as="r" hint-placeholder-count="6">
+                <option value="{{ r }}">{{ r }}</option>
+              </sc-for>
+            </select>
+            <select value="{{ filterRating }}" onChange="{{ setFilterRating }}" style="padding: 8px 0; border: none; border-bottom: 1px solid oklch(70% 0.008 90); background: transparent; font-size: 13.5px; font-weight: 600; color: oklch(25% 0.01 90); letter-spacing: 0.02em;">
+              <option value="all">所有評級</option>
+              <option value="Gold">Gold 金級</option>
+              <option value="Silver">Silver 銀級</option>
+              <option value="Bronze">Bronze 銅級</option>
+            </select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: {{ gridCols }}; gap: 1px; background: oklch(87% 0.008 90);">
+            <sc-for list="{{ filteredBusinesses }}" as="biz" hint-placeholder-count="8">
+              <div onClick="{{ biz.onSelect }}" style="cursor: pointer; padding: 28px; background: oklch(97% 0.008 90); transition: background 0.15s;" style-hover="{ background: 'oklch(100% 0 0)' }">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                  <div>
+                    <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 600; margin: 0 0 4px;">{{ biz.nameZh }}</h3>
+                    <p style="font-size: 12px; color: oklch(50% 0.01 90); margin: 0;">{{ biz.nameEn }} · {{ biz.location }}</p>
+                  </div>
+                  <span style="padding: 3px 12px; border: 1px solid {{ biz.ratingColorBg }}; border-radius: 999px; font-size: 11px; font-weight: 700; color: {{ biz.ratingColorBg }}; white-space: nowrap;">{{ biz.rating }}</span>
+                </div>
+                <p style="font-size: 11px; color: oklch(52% 0.01 90); margin: 0 0 18px;">稽核依據：{{ biz.certifiedBy }} · 最近稽核 {{ biz.lastAudited }}</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding-top: 16px; border-top: 1px solid oklch(90% 0.008 90);">
+                  <div>
+                    <p style="font-size: 10px; color: oklch(55% 0.01 90); margin: 0 0 3px; font-weight: 600; letter-spacing: 0.02em;">碳足跡</p>
+                    <p style="font-size: 12.5px; font-weight: 700; margin: 0;">{{ biz.kpis.carbonFootprint }}</p>
+                  </div>
+                  <div>
+                    <p style="font-size: 10px; color: oklch(55% 0.01 90); margin: 0 0 3px; font-weight: 600; letter-spacing: 0.02em;">能源使用</p>
+                    <p style="font-size: 12.5px; font-weight: 700; margin: 0;">{{ biz.kpis.energyUse }}</p>
+                  </div>
+                  <div>
+                    <p style="font-size: 10px; color: oklch(55% 0.01 90); margin: 0 0 3px; font-weight: 600; letter-spacing: 0.02em;">水資源</p>
+                    <p style="font-size: 12.5px; font-weight: 700; margin: 0;">{{ biz.kpis.waterUse }}</p>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+            <p style="text-align: center; padding: 60px 0; color: oklch(52% 0.01 90); font-size: 15px;">此篩選條件下沒有符合的業者。</p>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- DETAIL PAGE -->
+    <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+      <section style="max-width: 900px; margin: 0 auto; padding: 56px 48px 100px; animation: gtFadeIn 0.5s ease;">
+        <div onClick="{{ goDirectory }}" style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em; color: oklch(45% 0.01 90); margin-bottom: 32px;">← 返回評級查詢</div>
+
+        <sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 20px;">
+            <div>
+              <h1 style="font-family: 'Playfair Display', Georgia, serif; font-size: 34px; font-weight: 600; margin: 0 0 6px;">{{ selected.nameZh }}</h1>
+              <p style="font-size: 14px; color: oklch(48% 0.01 90); margin: 0;">{{ selected.nameEn }} · {{ selected.location }}</p>
+            </div>
+            <span style="padding: 5px 16px; border: 1px solid {{ selected.ratingColorBg }}; border-radius: 999px; font-size: 13px; font-weight: 700; color: {{ selected.ratingColorBg }}; white-space: nowrap;">{{ selected.rating }}</span>
+          </div>
+          <p style="font-size: 12.5px; color: oklch(52% 0.01 90); margin: 0 0 44px;">稽核依據：{{ selected.certifiedBy }} · 最近稽核日期 {{ selected.lastAudited }}</p>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: oklch(87% 0.008 90); margin-bottom: 48px;">
+            <div style="padding: 24px; background: oklch(97% 0.008 90);">
+              <p style="font-size: 11px; font-weight: 700; color: oklch(52% 0.01 90); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.06em;">碳足跡</p>
+              <p style="font-size: 21px; font-weight: 700; margin: 0;">{{ selected.kpis.carbonFootprint }}</p>
+            </div>
+            <div style="padding: 24px; background: oklch(97% 0.008 90);">
+              <p style="font-size: 11px; font-weight: 700; color: oklch(52% 0.01 90); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.06em;">能源使用</p>
+              <p style="font-size: 21px; font-weight: 700; margin: 0;">{{ selected.kpis.energyUse }}</p>
+            </div>
+            <div style="padding: 24px; background: oklch(97% 0.008 90);">
+              <p style="font-size: 11px; font-weight: 700; color: oklch(52% 0.01 90); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.06em;">水資源</p>
+              <p style="font-size: 21px; font-weight: 700; margin: 0;">{{ selected.kpis.waterUse }}</p>
+            </div>
+          </div>
+
+          <div style="padding-top: 32px; border-top: 1px solid oklch(85% 0.008 90);">
+            <p style="font-size: 16px; font-weight: 700; margin: 0 0 4px;">碳足跡趨勢（近 6 次稽核）</p>
+            <p style="font-size: 12.5px; color: oklch(52% 0.01 90); margin: 0 0 24px;">持續追蹤才是認證價值所在，而非一次性達標。</p>
+            <svg viewBox="0 0 560 180" style="width: 100%; height: 180px; overflow: visible;">
+              <line x1="0" y1="150" x2="560" y2="150" stroke="oklch(88% 0.008 90)" stroke-width="1"></line>
+              <polyline points="{{ selected.trendPoints }}" fill="none" stroke="{{ accent }}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+              <sc-for list="{{ selected.trendDots }}" as="dot" hint-placeholder-count="6">
+                <circle cx="{{ dot.x }}" cy="{{ dot.y }}" r="4" fill="{{ accent }}"></circle>
+              </sc-for>
+            </svg>
+            <div style="display: flex; justify-content: space-between; margin-top: 6px;">
+              <sc-for list="{{ selected.trendLabels }}" as="lbl" hint-placeholder-count="6">
+                <span style="font-size: 10.5px; color: oklch(55% 0.01 90); font-weight: 600;">{{ lbl }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <!-- CALCULATOR PAGE -->
+    <sc-if value="{{ isCalculator }}" hint-placeholder-val="{{ false }}">
+      <section style="animation: gtFadeIn 0.5s ease;">
+        <div style="position: relative; height: 260px; overflow: hidden;">
+          <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1600&auto=format&fit=crop" alt="步道景觀" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, oklch(8% 0.01 90 / 0.5) 100%); pointer-events: none;"></div>
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 32px; pointer-events: none;">
+            <h1 style="pointer-events: auto; font-family: 'Playfair Display', Georgia, serif; font-size: 30px; font-weight: 600; color: oklch(99% 0.003 90); margin: 0 0 8px; text-shadow: 0 2px 14px oklch(0% 0 0 / 0.45);">省錢 × 減碳計算器</h1>
+            <p style="pointer-events: auto; font-size: 13.5px; color: oklch(96% 0.005 90); margin: 0; text-shadow: 0 1px 8px oklch(0% 0 0 / 0.4);">安排你的行程，立即看到能省下的費用與減少的碳排</p>
+          </div>
+        </div>
+
+        <div style="max-width: 720px; margin: 0 auto; padding: 48px 48px 100px;">
+
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 40px;">
+            <sc-for list="{{ stepDots }}" as="dot" hint-placeholder-count="4">
+              <div style="height: 2px; flex: 1; background: {{ dot.color }};"></div>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+            <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(50% 0.01 90); margin: 0 0 14px;">Step 1 · 從哪裡出發？</p>
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 32px;">
+              <sc-for list="{{ originOptions }}" as="opt" hint-placeholder-count="10">
+                <div onClick="{{ opt.onSelect }}" style="cursor: pointer; padding: 16px 8px; text-align: center; border: 1px solid {{ opt.borderColor }}; background: transparent; font-size: 13px; font-weight: 600;">
+                  {{ opt.label }}
+                </div>
+              </sc-for>
+            </div>
+            <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(50% 0.01 90); margin: 0 0 14px;">你想去哪裡？</p>
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 36px;">
+              <sc-for list="{{ destinationOptions }}" as="opt" hint-placeholder-count="9">
+                <div onClick="{{ opt.onSelect }}" style="cursor: pointer; padding: 16px 8px; text-align: center; border: 1px solid {{ opt.borderColor }}; background: transparent; font-size: 13px; font-weight: 600;">
+                  {{ opt.label }}
+                </div>
+              </sc-for>
+            </div>
+            <button onClick="{{ nextStep }}" disabled="{{ noTripSelection }}" style="padding: 13px 28px; border-radius: 2px; border: none; background: {{ accent }}; color: white; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; opacity: {{ step1BtnOpacity }};">下一步 →</button>
+          </sc-if>
+
+          <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+            <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(50% 0.01 90); margin: 0 0 4px;">Step 2 · 選擇交通方式</p>
+            <p style="font-size: 12.5px; color: oklch(52% 0.01 90); margin: 0 0 20px;">{{ planOrigin }} → {{ planDestination }}（來回）— 各方式的預估碳排</p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 36px;">
+              <sc-for list="{{ transportOptions }}" as="opt" hint-placeholder-count="3">
+                <div onClick="{{ opt.onSelect }}" style="cursor: pointer; padding: 22px 14px; text-align: center; border: 1px solid {{ opt.borderColor }}; background: transparent; font-size: 13.5px; font-weight: 700;">
+                  {{ opt.labelZh }}
+                  <div style="font-size: 11px; font-weight: 500; color: oklch(52% 0.01 90); margin-top: 4px;">{{ opt.labelEn }}</div>
+                  <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 600; color: {{ accent }}; margin-top: 12px;">{{ opt.carbon }}</div>
+                  <div style="font-size: 10px; font-weight: 600; color: oklch(55% 0.01 90);">kg CO₂</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button onClick="{{ prevStep }}" style="padding: 13px 28px; border-radius: 2px; border: 1px solid oklch(80% 0.008 90); background: transparent; color: oklch(25% 0.01 90); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">← 上一步</button>
+              <button onClick="{{ nextStep }}" disabled="{{ noTransport }}" style="padding: 13px 28px; border-radius: 2px; border: none; background: {{ accent }}; color: white; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; opacity: {{ step2BtnOpacity }};">下一步 →</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+            <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(50% 0.01 90); margin: 0 0 4px;">Step 3 · 選擇住宿</p>
+            <p style="font-size: 12.5px; color: oklch(52% 0.01 90); margin: 0 0 20px;">{{ planDestination }}的評等選項比較</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: oklch(87% 0.008 90); margin-bottom: 36px;">
+              <sc-for list="{{ hotelOptions }}" as="opt" hint-placeholder-count="4">
+                <div onClick="{{ opt.onSelect }}" style="cursor: pointer; padding: 22px; text-align: left; background: oklch(97% 0.008 90); border: 1px solid {{ opt.borderColor }};">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                    <span style="font-size: 15px; font-weight: 700;">{{ opt.labelZh }}</span>
+                    <sc-if value="{{ opt.hasBadge }}" hint-placeholder-val="{{ false }}">
+                      <span style="padding: 2px 10px; border: 1px solid {{ opt.badgeColor }}; border-radius: 999px; font-size: 10.5px; font-weight: 700; color: {{ opt.badgeColor }};">{{ opt.badgeText }}</span>
+                    </sc-if>
+                  </div>
+                  <p style="font-size: 12px; color: oklch(52% 0.01 90); margin: 0 0 12px; line-height: 1.5;">{{ opt.description }}</p>
+                  <p style="font-size: 12.5px; font-weight: 700; color: {{ accent }}; margin: 0;">{{ opt.bonusLabel }}</p>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button onClick="{{ prevStep }}" style="padding: 13px 28px; border-radius: 2px; border: 1px solid oklch(80% 0.008 90); background: transparent; color: oklch(25% 0.01 90); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">← 上一步</button>
+              <button onClick="{{ nextStep }}" disabled="{{ noHotel }}" style="padding: 13px 28px; border-radius: 2px; border: none; background: {{ accent }}; color: white; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; opacity: {{ step3BtnOpacity }};">查看結果 →</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isResult }}" hint-placeholder-val="{{ false }}">
+            <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(50% 0.01 90); margin: 0 0 4px;">你的行程試算結果</p>
+            <p style="font-size: 12.5px; color: oklch(52% 0.01 90); margin: 0 0 28px;">{{ planSummary }}</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: oklch(87% 0.008 90); margin-bottom: 36px;">
+              <div style="padding: 28px; background: oklch(97% 0.008 90);">
+                <p style="font-size: 11.5px; font-weight: 700; color: oklch(50% 0.01 90); margin: 0 0 10px; letter-spacing: 0.02em;">預估減少碳排</p>
+                <p style="font-family: 'Playfair Display', Georgia, serif; font-size: 36px; font-weight: 600; margin: 0;">{{ carbonSaved }} <span style="font-size: 16px; font-weight: 600; font-family: -apple-system, sans-serif;">kg CO₂</span></p>
+              </div>
+              <div style="padding: 28px; background: oklch(97% 0.008 90);">
+                <p style="font-size: 11.5px; font-weight: 700; color: oklch(50% 0.01 90); margin: 0 0 10px; letter-spacing: 0.02em;">預估省下費用</p>
+                <p style="font-family: 'Playfair Display', Georgia, serif; font-size: 36px; font-weight: 600; margin: 0;">NT$ {{ moneySaved }}</p>
+              </div>
+            </div>
+
+            <div style="padding-top: 8px; margin-bottom: 36px;">
+              <div style="margin-bottom: 22px;">
+                <p style="font-size: 12px; font-weight: 600; color: oklch(48% 0.01 90); margin: 0 0 8px;">碳排（相對一般自駕基準）</p>
+                <div style="height: 3px; background: oklch(90% 0.008 90); overflow: hidden;">
+                  <div style="height: 100%; background: {{ accent }}; width: {{ carbonBarWidth }}%; transition: width 0.6s ease;"></div>
+                </div>
+              </div>
+              <div>
+                <p style="font-size: 12px; font-weight: 600; color: oklch(48% 0.01 90); margin: 0 0 8px;">費用（相對一般自駕基準）</p>
+                <div style="height: 3px; background: oklch(90% 0.008 90); overflow: hidden;">
+                  <div style="height: 100%; background: oklch(45% 0.01 90); width: {{ moneyBarWidth }}%; transition: width 0.6s ease;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+              <button onClick="{{ resetCalculator }}" style="padding: 13px 28px; border-radius: 2px; border: 1px solid oklch(80% 0.008 90); background: transparent; color: oklch(25% 0.01 90); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">重新試算</button>
+              <button onClick="{{ goDirectory }}" style="padding: 13px 28px; border-radius: 2px; border: none; background: {{ accent }}; color: white; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;">查看高評級業者 →</button>
+            </div>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- ABOUT PAGE -->
+    <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+      <section style="animation: gtFadeIn 0.5s ease;">
+        <div style="position: relative; height: 260px; overflow: hidden;">
+          <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=1600&auto=format&fit=crop" alt="自然景觀" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <div style="position: absolute; inset: 0; background: oklch(8% 0.01 90 / 0.3); pointer-events: none;"></div>
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 48px; pointer-events: none;">
+            <h1 style="pointer-events: auto; font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 600; color: oklch(99% 0.003 90); margin: 0 0 12px; text-shadow: 0 2px 14px oklch(0% 0 0 / 0.45);">關於我們</h1>
+            <p style="pointer-events: auto; font-size: 14px; color: oklch(96% 0.005 90); margin: 0 auto; max-width: 480px; text-shadow: 0 1px 8px oklch(0% 0 0 / 0.4);">一個非營利的永續旅遊評級平台原型</p>
+          </div>
+        </div>
+
+        <div style="max-width: 720px; margin: 0 auto; padding: 56px 48px 100px;">
+          <p style="font-size: 16px; line-height: 1.85; color: oklch(24% 0.01 90); margin: 0 0 32px;">
+            Green Travel 不販售行程、不抽取佣金，唯一目標是讓旅客在決定「去哪裡玩、住哪裡」之前，能看到透明、可查核的永續數據。
+          </p>
+
+          <div style="padding: 32px 0; border-top: 1px solid oklch(85% 0.008 90); border-bottom: 1px solid oklch(85% 0.008 90); margin-bottom: 40px;">
+            <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: oklch(45% 0.01 90); margin: 0 0 14px;">為什麼一定要第三方稽核？</p>
+            <p style="font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 19px; line-height: 1.7; color: oklch(22% 0.01 90); margin: 0;">
+              認證的價值來自「持續追蹤」，不是「一次性達標」。我們平台上每一筆評級都附上稽核來源與最近稽核日期，KPI 趨勢也會持續更新。
+            </p>
+          </div>
+
+          <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: oklch(45% 0.01 90); margin: 0 0 16px;">我們不做的事</p>
+          <div style="display: flex; flex-direction: column; gap: 1px; background: oklch(87% 0.008 90);">
+            <div style="padding: 18px 22px; background: oklch(97% 0.008 90); font-size: 14px; color: oklch(28% 0.01 90);">不做成營利型旅遊訂購平台，平台上沒有「購買」流程</div>
+            <div style="padding: 18px 22px; background: oklch(97% 0.008 90); font-size: 14px; color: oklch(28% 0.01 90);">不用「愛地球」等空泛形容詞取代數據，每個評級都附可查依據</div>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+  </main>
+
+  <footer style="border-top: 1px solid oklch(87% 0.008 90); padding: 32px 48px; text-align: center;">
+    <p style="font-size: 12px; color: oklch(52% 0.01 90); margin: 0; letter-spacing: 0.02em;">GREEN TRAVEL · 原型階段，資料為模擬資料 · 呼應 SDG 11 / SDG 12</p>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;primaryAccent&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#33463a&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#33463a&quot;, &quot;#2b3b30&quot;, &quot;#3d4f3f&quot;, &quot;#26332b&quot;]}, &quot;cardDensity&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;comfortable&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;comfortable&quot;, &quot;compact&quot;]}}">
+const REGIONS = ['台北', '台中', '台南', '花蓮', '墾丁', '宜蘭', '高雄', '南投', '澎湖', '屏東'];
+
+const RATING_COLORS = {
+  Gold: 'oklch(62% 0.1 82)',
+  Silver: 'oklch(55% 0.01 250)',
+  Bronze: 'oklch(48% 0.07 50)'
+};
+
+function makeTrend(seed) {
+  const points = [];
+  let val = 18 + (seed % 5) * 2;
+  for (let i = 0; i < 6; i++) {
+    val = Math.max(6, val - (1 + (seed + i) % 3) * 0.9);
+    points.push(Math.round(val * 10) / 10);
+  }
+  return points;
+}
+
+function trendToSvg(vals) {
+  const max = Math.max(...vals) + 2;
+  const min = Math.min(...vals) - 2;
+  const range = max - min || 1;
+  const w = 560, h = 150, pad = 10;
+  return vals.map((v, i) => {
+    const x = (i / (vals.length - 1)) * (w - pad * 2) + pad;
+    const y = h - ((v - min) / range) * h;
+    return { x: Math.round(x), y: Math.round(y) };
+  });
+}
+
+const RAW_BUSINESSES = [
+  { id: '001', nameZh: '綠境旅宿', nameEn: 'GreenStay Lodge', location: '花蓮', rating: 'Gold', certifiedBy: 'GreenCheck 永續認證', lastAudited: '2026-06', kpis: { carbonFootprint: '9.8 kg CO2/晚', energyUse: '低於同級平均 32%', waterUse: '低於同級平均 28%' } },
+  { id: '002', nameZh: '山嵐生態渡假村', nameEn: 'Misty Ridge Eco Resort', location: '南投', rating: 'Gold', certifiedBy: 'EcoAudit Global', lastAudited: '2026-05', kpis: { carbonFootprint: '11.2 kg CO2/晚', energyUse: '低於同級平均 27%', waterUse: '低於同級平均 24%' } },
+  { id: '003', nameZh: '澄海濱旅店', nameEn: 'Clearwater Bay Inn', location: '墾丁', rating: 'Silver', certifiedBy: 'GreenCheck 永續認證', lastAudited: '2026-04', kpis: { carbonFootprint: '13.9 kg CO2/晚', energyUse: '低於同級平均 18%', waterUse: '低於同級平均 15%' } },
+  { id: '004', nameZh: '城光商旅', nameEn: 'City Light Business Hotel', location: '台北', rating: 'Silver', certifiedBy: 'Sustainelo 認證', lastAudited: '2026-06', kpis: { carbonFootprint: '15.1 kg CO2/晚', energyUse: '低於同級平均 12%', waterUse: '低於同級平均 20%' } },
+  { id: '005', nameZh: '田野工作室民宿', nameEn: 'Field Studio B&B', location: '宜蘭', rating: 'Gold', certifiedBy: 'EcoAudit Global', lastAudited: '2026-03', kpis: { carbonFootprint: '8.4 kg CO2/晚', energyUse: '低於同級平均 35%', waterUse: '低於同級平均 30%' } },
+  { id: '006', nameZh: '港灣行旅', nameEn: 'Harborview Traveler', location: '高雄', rating: 'Bronze', certifiedBy: 'GreenCheck 永續認證', lastAudited: '2026-02', kpis: { carbonFootprint: '18.7 kg CO2/晚', energyUse: '低於同級平均 6%', waterUse: '與同級平均相當' } },
+  { id: '007', nameZh: '雲頂青旅', nameEn: 'Cloudtop Hostel', location: '台中', rating: 'Silver', certifiedBy: 'Sustainelo 認證', lastAudited: '2026-05', kpis: { carbonFootprint: '12.6 kg CO2/晚', energyUse: '低於同級平均 16%', waterUse: '低於同級平均 19%' } },
+  { id: '008', nameZh: '離島風光民宿', nameEn: 'Island Breeze Homestay', location: '澎湖', rating: 'Bronze', certifiedBy: 'EcoAudit Global', lastAudited: '2026-01', kpis: { carbonFootprint: '17.3 kg CO2/晚', energyUse: '低於同級平均 8%', waterUse: '低於同級平均 5%' } },
+  { id: '009', nameZh: '古都文旅', nameEn: 'Old Capital Culture Inn', location: '台南', rating: 'Silver', certifiedBy: 'GreenCheck 永續認證', lastAudited: '2026-06', kpis: { carbonFootprint: '14.4 kg CO2/晚', energyUse: '低於同級平均 14%', waterUse: '低於同級平均 17%' } },
+  { id: '010', nameZh: '南境慢旅', nameEn: 'Southland Slow Travel', location: '屏東', rating: 'Gold', certifiedBy: 'Sustainelo 認證', lastAudited: '2026-04', kpis: { carbonFootprint: '10.5 kg CO2/晚', energyUse: '低於同級平均 29%', waterUse: '低於同級平均 22%' } }
+];
+
+const BUSINESSES = RAW_BUSINESSES.map((b, idx) => {
+  const trendVals = makeTrend(idx + 1);
+  const dots = trendToSvg(trendVals);
+  return {
+    ...b,
+    ratingColorBg: RATING_COLORS[b.rating],
+    trendPoints: dots.map(d => d.x + ',' + d.y).join(' '),
+    trendDots: dots,
+    trendLabels: ['第1次', '第2次', '第3次', '第4次', '第5次', '最近']
+  };
+});
+
+const TRANSPORT_BASE = [
+  { id: 'drive', labelZh: '自駕', labelEn: 'Self-drive', factor: 0.192, costPerKm: 8 },
+  { id: 'transit', labelZh: '大眾運輸', labelEn: 'Public Transit', factor: 0.041, costPerKm: 3.5 },
+  { id: 'carpool', labelZh: '共乘', labelEn: 'Carpool', factor: 0.096, costPerKm: 5 }
+];
+
+const REGION_COORDS = {
+  '台北': [0, 0], '宜蘭': [55, -15], '台中': [10, -150], '南投': [35, -170],
+  '花蓮': [95, -160], '台南': [5, -270], '高雄': [10, -300], '屏東': [20, -335],
+  '墾丁': [30, -375], '澎湖': [-140, -250]
+};
+function distanceBetween(a, b) {
+  if (!a || !b || a === b) return 0;
+  const [ax, ay] = REGION_COORDS[a];
+  const [bx, by] = REGION_COORDS[b];
+  return Math.round(Math.hypot(ax - bx, ay - by));
+}
+const BASE_HOTEL_COST = 3000;
+const UNRATED_COLOR = 'oklch(60% 0.008 90)';
+const TIER_DEFS = {
+  Gold: { zh: 'Gold 金級', bonusCarbon: 18, bonusCost: 600, certifiedBy: 'GreenCheck 永續認證', kpi: { carbonFootprint: '9.8 kg CO2/晚', energyUse: '低於同級平均 30%', waterUse: '低於同級平均 25%' } },
+  Silver: { zh: 'Silver 銀級', bonusCarbon: 10, bonusCost: 350, certifiedBy: 'Sustainelo 認證', kpi: { carbonFootprint: '13.5 kg CO2/晚', energyUse: '低於同級平均 15%', waterUse: '低於同級平均 15%' } },
+  Bronze: { zh: 'Bronze 銅級', bonusCarbon: 5, bonusCost: 150, certifiedBy: 'EcoAudit Global', kpi: { carbonFootprint: '17.5 kg CO2/晚', energyUse: '低於同級平均 6%', waterUse: '與同級平均相當' } },
+  Unrated: { zh: '未評等', bonusCarbon: 0, bonusCost: 0, certifiedBy: '無第三方稽核', kpi: { carbonFootprint: '未提供', energyUse: '未提供', waterUse: '未提供' } }
+};
+function buildHotelOptions(destination) {
+  const destBiz = BUSINESSES.filter(b => b.location === destination);
+  return ['Gold', 'Silver', 'Bronze', 'Unrated'].map(tier => {
+    const def = TIER_DEFS[tier];
+    const match = destBiz.find(b => b.rating === tier);
+    const labelZh = match ? match.nameZh : (tier === 'Unrated' ? destination + ' 一般未評等住宿' : destination + def.zh + '旅宿');
+    const certifiedBy = match ? match.certifiedBy : def.certifiedBy;
+    const kpi = match ? match.kpis : def.kpi;
+    return {
+      id: tier,
+      labelZh,
+      hasBadge: tier !== 'Unrated',
+      badgeColor: RATING_COLORS[tier] || UNRATED_COLOR,
+      badgeText: tier,
+      description: certifiedBy + ' · ' + kpi.carbonFootprint,
+      bonusCarbon: def.bonusCarbon,
+      bonusCost: def.bonusCost,
+      bonusLabel: tier === 'Unrated' ? '無額外減碳效益' : ('額外減碳 ' + def.bonusCarbon + ' kg CO₂ · 省 NT$' + def.bonusCost)
+    };
+  });
+}
+
+class Component extends DCLogic {
+  state = {
+    page: 'home',
+    filterRegion: 'all',
+    filterRating: 'all',
+    selectedBusinessId: null,
+    calcStep: 1,
+    planOrigin: null,
+    planDestination: null,
+    transport: null,
+    hotelChoice: null
+  };
+
+  setPage(page) { this.setState({ page }); }
+
+  renderVals() {
+    const s = this.state;
+    const accent = this.props.primaryAccent ?? '#33463a';
+    const compact = (this.props.cardDensity ?? 'comfortable') === 'compact';
+
+    const navDefs = [
+      { id: 'home', zh: '首頁' },
+      { id: 'directory', zh: '評級查詢' },
+      { id: 'calculator', zh: '省錢×減碳計算器' },
+      { id: 'about', zh: '關於我們' }
+    ];
+    const navItems = navDefs.map(n => ({ ...n, onClick: () => this.setPage(n.id) }));
+
+    const regionOptions = ['all', ...REGIONS];
+    const filteredBusinesses = BUSINESSES.filter(b =>
+      (s.filterRegion === 'all' || b.location === s.filterRegion) &&
+      (s.filterRating === 'all' || b.rating === s.filterRating)
+    ).map(b => ({ ...b, onSelect: () => this.setState({ selectedBusinessId: b.id, page: 'detail' }) }));
+
+    const selected = BUSINESSES.find(b => b.id === s.selectedBusinessId) || null;
+
+    const originOptions = REGIONS.map(r => ({
+      label: r,
+      onSelect: () => this.setState({ planOrigin: r, planDestination: s.planDestination === r ? null : s.planDestination, transport: null, hotelChoice: null }),
+      borderColor: s.planOrigin === r ? accent : 'oklch(80% 0.008 90)'
+    }));
+    const destinationOptions = REGIONS.filter(r => r !== s.planOrigin).map(r => ({
+      label: r,
+      onSelect: () => this.setState({ planDestination: r, transport: null, hotelChoice: null }),
+      borderColor: s.planDestination === r ? accent : 'oklch(80% 0.008 90)'
+    }));
+
+    const roundTrip = distanceBetween(s.planOrigin, s.planDestination) * 2;
+
+    const transportOptions = TRANSPORT_BASE.map(t => ({
+      ...t,
+      carbon: Math.round(roundTrip * t.factor),
+      onSelect: () => this.setState({ transport: t.id }),
+      borderColor: s.transport === t.id ? accent : 'oklch(80% 0.008 90)'
+    }));
+
+    const hotelDefs = s.planDestination ? buildHotelOptions(s.planDestination) : [];
+    const hotelOptions = hotelDefs.map(h => ({
+      ...h,
+      onSelect: () => this.setState({ hotelChoice: h.id }),
+      borderColor: s.hotelChoice === h.id ? accent : 'oklch(80% 0.008 90)'
+    }));
+
+    const transport = TRANSPORT_BASE.find(t => t.id === s.transport) || TRANSPORT_BASE[0];
+    const hotel = hotelDefs.find(h => h.id === s.hotelChoice) || { bonusCarbon: 0, bonusCost: 0, labelZh: '' };
+
+    const baselineCarbon = Math.round(roundTrip * TRANSPORT_BASE[0].factor);
+    const yourCarbon = Math.max(3, Math.round(roundTrip * transport.factor - hotel.bonusCarbon));
+    const carbonSaved = Math.max(0, baselineCarbon - yourCarbon);
+
+    const baselineCost = Math.round(roundTrip * TRANSPORT_BASE[0].costPerKm + BASE_HOTEL_COST);
+    const yourCost = Math.max(300, Math.round(roundTrip * transport.costPerKm + (BASE_HOTEL_COST - hotel.bonusCost)));
+    const moneySaved = Math.max(0, baselineCost - yourCost);
+
+    const planSummary = (s.planOrigin && s.planDestination)
+      ? '行程：' + s.planOrigin + ' → ' + s.planDestination + ' · ' + (transport.labelZh || '') + ' · ' + (hotel.labelZh || '')
+      : '';
+
+    const stepColors = [1, 2, 3, 4].map(n => n <= s.calcStep ? accent : 'oklch(88% 0.008 90)');
+
+    return {
+      accent,
+      isHome: s.page === 'home',
+      isDirectory: s.page === 'directory',
+      isDetail: s.page === 'detail',
+      isCalculator: s.page === 'calculator',
+      isAbout: s.page === 'about',
+      goHome: () => this.setPage('home'),
+      goDirectory: () => this.setPage('directory'),
+      goCalculator: () => this.setState({ page: 'calculator', calcStep: 1, planOrigin: null, planDestination: null, transport: null, hotelChoice: null }),
+      navItems,
+      gridCols: compact ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)',
+      regionOptions,
+      filterRegion: s.filterRegion,
+      filterRating: s.filterRating,
+      setFilterRegion: e => this.setState({ filterRegion: e.target.value }),
+      setFilterRating: e => this.setState({ filterRating: e.target.value }),
+      businessCount: BUSINESSES.length,
+      filteredBusinesses,
+      noResults: filteredBusinesses.length === 0,
+      hasSelected: !!selected,
+      selected,
+      stepDots: stepColors.map(c => ({ color: c })),
+      isStep1: s.calcStep === 1,
+      isStep2: s.calcStep === 2,
+      isStep3: s.calcStep === 3,
+      isResult: s.calcStep === 4,
+      originOptions,
+      destinationOptions,
+      transportOptions,
+      hotelOptions,
+      planOrigin: s.planOrigin,
+      planDestination: s.planDestination,
+      planSummary,
+      noTripSelection: !s.planOrigin || !s.planDestination,
+      step1BtnOpacity: (s.planOrigin && s.planDestination) ? 1 : 0.4,
+      noTransport: !s.transport,
+      step2BtnOpacity: s.transport ? 1 : 0.4,
+      noHotel: !s.hotelChoice,
+      step3BtnOpacity: s.hotelChoice ? 1 : 0.4,
+      nextStep: () => this.setState({ calcStep: Math.min(4, s.calcStep + 1) }),
+      prevStep: () => this.setState({ calcStep: Math.max(1, s.calcStep - 1) }),
+      resetCalculator: () => this.setState({ calcStep: 1, planOrigin: null, planDestination: null, transport: null, hotelChoice: null }),
+      carbonSaved,
+      moneySaved,
+      carbonBarWidth: Math.min(100, Math.round((carbonSaved / Math.max(1, baselineCarbon)) * 100)),
+      moneyBarWidth: Math.min(100, Math.round((moneySaved / Math.max(1, baselineCost)) * 100))
+    };
+  }
+}
+
+</script>
+</body>
+</html>
